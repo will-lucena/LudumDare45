@@ -7,6 +7,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Action<int> updateMagazinesHud;
+    public Action<int> updateAmmoHud;
+    
+    
     private Controls _controls;
     private Rigidbody2D _rb;
     private Vector2 _movement;
@@ -42,13 +46,22 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _controls.PlayerControl.Move.performed += ctx => move(ctx.ReadValue<Vector2>());
         _controls.PlayerControl.Move.canceled += ctx => move(ctx.ReadValue<Vector2>());
-        _controls.PlayerControl.Aim.performed += ctx => aim(ctx.ReadValue<Vector2>());
+        _controls.PlayerControl.Aim.performed += ctx => aim(Camera.main.ScreenToWorldPoint(ctx.ReadValue<Vector2>()));
         _controls.PlayerControl.Shoot.performed += _ => shooting();
         _controls.PlayerControl.Reload.performed += _ => reload();
         _controls.PlayerControl.ChangeWeapon.performed += _ => changeWeapon(_getFirstUnselectedSlot());
         _controls.PlayerControl.ChangeToMainWeapon.performed += _ => changeWeapon(0);
         _controls.PlayerControl.ChangeToSecondaryWeapon.performed += _ => changeWeapon(1);
         _controls.PlayerControl.CollectWeapon.performed += _ => pickWeapon();
+    }
+
+    private void Start()
+    {
+        if (_activeWeapon)
+        {
+            updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
+            updateMagazinesHud?.Invoke(magazines);
+        }
     }
 
     private int _getFirstFreeSlot()
@@ -92,11 +105,10 @@ public class Player : MonoBehaviour
 
     private void shooting()
     {
-        if (_activeWeapon)
+        if (_activeWeapon && _activeWeapon.currrentAmmo > 0)
         {
-            GameObject bullet = Instantiate(_activeWeapon.bulletPrefab, _activeWeapon.shootPoint.position, _activeWeapon.shootPoint.rotation);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(_activeWeapon.shootPoint.up * _activeWeapon.bulletForce, ForceMode2D.Impulse);
+            _activeWeapon.shoot();
+            updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
         }
     }
 
@@ -104,6 +116,7 @@ public class Player : MonoBehaviour
     {
         magazines--;
         _activeWeapon.reload();
+        updateMagazinesHud?.Invoke(magazines);
     }
 
     private void changeWeapon(int slot)
@@ -113,6 +126,7 @@ public class Player : MonoBehaviour
             _activeWeapon.gameObject.SetActive(false);
             _activeWeapon = weapons[slot].GetComponent<Weapon>();
             activateWeapon(weapons[slot].gameObject);
+            updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
         }
     }
 
@@ -139,6 +153,7 @@ public class Player : MonoBehaviour
             if (_activeWeapon == null)
             {
                 _activeWeapon = weapons[0];
+                updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
             }
             _canPick = false;
         }

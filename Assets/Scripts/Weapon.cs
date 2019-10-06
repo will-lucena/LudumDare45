@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
         _sprite.sprite = weaponInfo.sprite;
         _bulletPrefab = weaponInfo.bulletPrefab;
         _maxAmmo = weaponInfo.maxAmmo;
+        _currentAmmo = _maxAmmo;
     }
 
     public GameObject bulletPrefab
@@ -44,11 +45,18 @@ public class Weapon : MonoBehaviour
     public int currrentAmmo
     {
         get => _currentAmmo;
-        set => _currentAmmo -= value;
     }
 
     public void reload()
     {
         _currentAmmo = _maxAmmo;
+    }
+
+    public void shoot()
+    {
+        _currentAmmo--;
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(shootPoint.up * bulletForce, ForceMode2D.Impulse);
     }
 }
