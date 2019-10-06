@@ -52,6 +52,12 @@ public class Weapon : MonoBehaviour
         _currentAmmo = _maxAmmo;
     }
 
+    //TODO: To change it to sprites
+    public Color sprite
+    {
+        get => _sprite.color;
+    }
+
     public void shoot()
     {
         _currentAmmo--;

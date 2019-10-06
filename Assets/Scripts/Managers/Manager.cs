@@ -7,6 +7,9 @@ namespace Managers
     {
         public Action<int> updateMagazineAmount;
         public Action<int> updateAmmoAmount;
+        public Action<int> updateSelectedWeapon;
+        public Action<Color> updatedWeaponBag;
+        public Action<int> updateAmountOfWeapons;
 
         [SerializeField] private Player player;
         
@@ -14,6 +17,9 @@ namespace Managers
         {
             player.updateAmmoHud += updateAmmoAmount;
             player.updateMagazinesHud += updateMagazineAmount;
+            player.updateSelectedWeapon += updateSelectedWeapon;
+            player.updateAmountOfWeapons += updateAmountOfWeapons;
+            player.updatedWeaponBag += updatedWeaponBag;
         }
     }
 }

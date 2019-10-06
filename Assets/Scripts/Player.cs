@@ -9,8 +9,10 @@ public class Player : MonoBehaviour
 {
     public Action<int> updateMagazinesHud;
     public Action<int> updateAmmoHud;
-    
-    
+    public Action<int> updateSelectedWeapon;
+    public Action<Color> updatedWeaponBag;
+    public Action<int> updateAmountOfWeapons;
+
     private Controls _controls;
     private Rigidbody2D _rb;
     private Vector2 _movement;
@@ -127,6 +129,7 @@ public class Player : MonoBehaviour
             _activeWeapon = weapons[slot].GetComponent<Weapon>();
             activateWeapon(weapons[slot].gameObject);
             updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
+            updateSelectedWeapon?.Invoke(slot);
         }
     }
 
@@ -148,7 +151,9 @@ public class Player : MonoBehaviour
             } 
             collectableWeapon.SetActive(false);
             weapons.Add(collectableWeapon.GetComponent<Weapon>());
+            updateAmountOfWeapons?.Invoke(weapons.Count);
             activateWeapon(collectableWeapon.gameObject);
+            updatedWeaponBag?.Invoke(collectableWeapon.GetComponent<Weapon>().sprite);
             
             if (_activeWeapon == null)
             {
