@@ -1,6 +1,10 @@
-# [A ludumdare 45 game](https://ldjam.com/events/ludum-dare/45/onlywithguns) following the theme "Start with nothing"
+# A ludumdare 45 game
 
 ![](/siteArts/gamejolt-thumbnail.jpg)
+
+# Theme => Start with nothing
+
+# [Gamepage](https://ldjam.com/events/ludum-dare/45/onlywithguns)
 
 ## Only with guns is a topdown shooter with a programmer art style ( ͡° ͜ʖ ͡°) try to survivor the most time you can kill many enemies you can without stay without ammo or magazines lefting or you will be back to the start point
 
