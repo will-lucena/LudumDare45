@@ -12,6 +12,7 @@ namespace Managers
         public Action<int> updateAmountOfWeapons;
 
         [SerializeField] private Player player;
+        private EnemyManager _enemyManager;
         
         private void Awake()
         {
@@ -20,6 +21,8 @@ namespace Managers
             player.updateSelectedWeapon += updateSelectedWeapon;
             player.updateAmountOfWeapons += updateAmountOfWeapons;
             player.updatedWeaponBag += updatedWeaponBag;
+
+            _enemyManager = GetComponent<EnemyManager>();
         }
     }
 }

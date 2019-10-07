@@ -7,16 +7,18 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Transform _shootPoint;
+    [SerializeField] private WeaponSO weaponInfo;
+    [SerializeField] private LineRenderer sight;
+    
     private SpriteRenderer _sprite;
     private int _maxAmmo;
     private int _currentAmmo;
     
-    [SerializeField] private Transform _shootPoint;
-    [SerializeField] private WeaponSO weaponInfo;
-
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
+        sight = GetComponent<LineRenderer>();
     }
 
     private void Start()
@@ -25,6 +27,7 @@ public class Weapon : MonoBehaviour
         _bulletPrefab = weaponInfo.bulletPrefab;
         _maxAmmo = weaponInfo.maxAmmo;
         _currentAmmo = _maxAmmo;
+        sight.enabled = false;
     }
 
     public GameObject bulletPrefab
@@ -64,5 +67,22 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(shootPoint.up * bulletForce, ForceMode2D.Impulse);
+    }
+
+    private void Update()
+    {
+        var position = shootPoint.position;
+        sight.SetPosition(0, position);
+        sight.SetPosition(1, position + shootPoint.up * 100);
+    }
+
+    private void OnEnable()
+    {
+        sight.enabled = true;
+    }
+
+    private void OnDisable()
+    {
+        sight.enabled = false;
     }
 }

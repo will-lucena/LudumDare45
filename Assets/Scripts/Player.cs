@@ -160,6 +160,10 @@ public class Player : MonoBehaviour
                 _activeWeapon = weapons[0];
                 updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
             }
+            else
+            {
+                collectableWeapon.SetActive(false);
+            }
             _canPick = false;
         }
     }
