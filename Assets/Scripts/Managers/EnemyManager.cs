@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemyManager : MonoBehaviour
-{
+{   
     [SerializeField] private float range;
     [SerializeField] private float poolSize;
     [SerializeField] private List<GameObject> enemiesPool;

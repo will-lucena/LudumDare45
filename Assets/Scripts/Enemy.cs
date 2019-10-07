@@ -6,8 +6,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public static Action<float> updateScore;
     private AIDestinationSetter _iaScript;
 
+    [SerializeField] private float scoreValue;
+    
     private void Start()
     {
         _iaScript = GetComponent<AIDestinationSetter>();
@@ -18,6 +21,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
+            updateScore?.Invoke(scoreValue);
             Destroy(gameObject);
         }
     }

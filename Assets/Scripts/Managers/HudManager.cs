@@ -15,6 +15,7 @@ namespace Managers
         [SerializeField] private TextMeshProUGUI changeLabel; 
         [SerializeField] private List<Image> weapons;
         [SerializeField] private List<Image> weaponsHighlight;
+        [SerializeField] private TextMeshProUGUI scoreLabel;
 
         private int items;
         private int selectedIndex;
@@ -26,8 +27,14 @@ namespace Managers
             _manager.updateAmountOfWeapons += showChangebutton;
             _manager.updatedWeaponBag += updateWeapons;
             _manager.updateSelectedWeapon += changeSelection;
+            _manager.updateScore += updateScore;
         }
 
+        private void updateScore(float value)
+        {
+            scoreLabel.text = "Score: " + value.ToString("F2");
+        }
+        
         //TODO: To generalize it to any size of items
         private void changeSelection(int index)
         {

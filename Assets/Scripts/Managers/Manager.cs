@@ -10,9 +10,10 @@ namespace Managers
         public Action<int> updateSelectedWeapon;
         public Action<Color> updatedWeaponBag;
         public Action<int> updateAmountOfWeapons;
+        public Action<float> updateScore;
 
         [SerializeField] private Player player;
-        private EnemyManager _enemyManager;
+        private float score;
         
         private void Awake()
         {
@@ -22,7 +23,18 @@ namespace Managers
             player.updateAmountOfWeapons += updateAmountOfWeapons;
             player.updatedWeaponBag += updatedWeaponBag;
 
-            _enemyManager = GetComponent<EnemyManager>();
+            Enemy.updateScore += listenScoreChange;
+        }
+
+        private void Update()
+        {
+            listenScoreChange(Time.deltaTime);
+        }
+
+        private void listenScoreChange(float amount)
+        {
+            score += amount;
+            updateScore?.Invoke(score);
         }
     }
 }
