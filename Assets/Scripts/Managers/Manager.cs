@@ -50,6 +50,7 @@ namespace Managers
             player.updateSelectedWeapon += updateSelectedWeapon;
             player.updateAmountOfWeapons += updateAmountOfWeapons;
             player.updatedWeaponBag += updatedWeaponBag;
+            Enemy.updateScore += listenScoreChange;
             player.deathPerAmmo += callEndGame;
             player.deathPerHealth += callEndGame;
         }
@@ -61,6 +62,7 @@ namespace Managers
             player.updateSelectedWeapon -= updateSelectedWeapon;
             player.updateAmountOfWeapons -= updateAmountOfWeapons;
             player.updatedWeaponBag -= updatedWeaponBag;
+            Enemy.updateScore -= listenScoreChange;
             player.deathPerAmmo -= callEndGame;
             player.deathPerHealth -= callEndGame;
         }
