@@ -22,8 +22,7 @@ public class Player : MonoBehaviour
     private bool _canPick;
     private GameObject collectableWeapon;
     private float _lastHitTaken;
-
-
+    
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationOffset;
     [SerializeField] private int magazines;
@@ -86,8 +85,8 @@ public class Player : MonoBehaviour
         if (_activeWeapon)
         {
             updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
-            updateMagazinesHud?.Invoke(magazines);
         }
+        updateMagazinesHud?.Invoke(magazines);
         currentHealth = maxHealth;
     }
 
@@ -102,13 +101,12 @@ public class Player : MonoBehaviour
         }
     }
     
-    private float totalAmmoLeft()
+    private int totalAmmoLeft()
     {
-        float total = 0;
+        int total = 0;
 
-        total = weapons.Sum(item => { return item.currrentAmmo; });
+        total = weapons.Sum(item => item.currrentAmmo);
         total += (magazines * _activeWeapon.maxAmmo);
-        
         return total;
     }
     
@@ -192,34 +190,43 @@ public class Player : MonoBehaviour
 
     private void pickWeapon()
     {
-        if (_canPick && !collectedWeapon(collectableWeapon.GetComponent<Weapon>()))
+        if (_canPick)
         {
-            collectableWeapon.GetComponent<Collider2D>().enabled = false;
-            int unselectedSlot = _getFirstFreeSlot();
-            if (weapons.Count == maxWeaponsLenght)
+            if (!collectableWeapon.GetComponent<Weapon>())
             {
-                var go = transform.GetChild(unselectedSlot);
-                go.gameObject.SetActive(true);
-                weapons.RemoveAt(unselectedSlot);
-                go.SetParent(null);
-                var position = transform.position;
-                go.position = new Vector2(position.x, position.y + throwForce);
-                go.GetComponent<Collider2D>().enabled = true;
-            } 
-            collectableWeapon.SetActive(false);
-            weapons.Add(collectableWeapon.GetComponent<Weapon>());
-            updateAmountOfWeapons?.Invoke(weapons.Count);
-            activateWeapon(collectableWeapon.gameObject);
-            updatedWeaponBag?.Invoke(collectableWeapon.GetComponent<Weapon>().sprite);
-            
-            if (_activeWeapon == null)
-            {
-                _activeWeapon = weapons[0];
-                updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
+                magazines++;
+                updateMagazinesHud?.Invoke(magazines);
+                Destroy(collectableWeapon);
             }
-            else
+            if (!collectedWeapon(collectableWeapon.GetComponent<Weapon>()))
             {
+                collectableWeapon.GetComponent<Collider2D>().enabled = false;
+                int unselectedSlot = _getFirstFreeSlot();
+                if (weapons.Count == maxWeaponsLenght)
+                {
+                    var go = transform.GetChild(unselectedSlot);
+                    go.gameObject.SetActive(true);
+                    weapons.RemoveAt(unselectedSlot);
+                    go.SetParent(null);
+                    var position = transform.position;
+                    go.position = new Vector2(position.x, position.y + throwForce);
+                    go.GetComponent<Collider2D>().enabled = true;
+                } 
                 collectableWeapon.SetActive(false);
+                weapons.Add(collectableWeapon.GetComponent<Weapon>());
+                updateAmountOfWeapons?.Invoke(weapons.Count);
+                activateWeapon(collectableWeapon.gameObject);
+                updatedWeaponBag?.Invoke(collectableWeapon.GetComponent<Weapon>().sprite);
+            
+                if (_activeWeapon == null)
+                {
+                    _activeWeapon = weapons[0];
+                    updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
+                }
+                else
+                {
+                    collectableWeapon.SetActive(false);
+                }
             }
             _canPick = false;
         }
@@ -245,12 +252,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _canPick = other.CompareTag("Weapon") ;
+        _canPick = other.CompareTag("Weapon") || other.CompareTag("Magazine");
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        _canPick = !other.gameObject.CompareTag("Weapon");
+        _canPick = !other.gameObject.CompareTag("Weapon") || !other.CompareTag("Magazine");
     }
 
     private void OnTriggerStay2D(Collider2D other)

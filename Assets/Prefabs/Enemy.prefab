@@ -180,7 +180,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.096, y: 0.203}
+    oldSize: {x: 0.192, y: 0.406}
     newSize: {x: 0.096, y: 0.203}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -204,3 +204,8 @@ MonoBehaviour:
   scoreValue: 10
   _damage: 10
   _hitInterval: 3
+  drops:
+  - {fileID: 134452713324379875, guid: 334c42704191243588710cb8135c338a, type: 3}
+  - {fileID: 2388689334373722708, guid: f900d6a0c1d19480b82df6656a7fca5e, type: 3}
+  - {fileID: 6198354775372555353, guid: 692164b90afb34a5198975d2ab5540d9, type: 3}
+  dropRate: 100

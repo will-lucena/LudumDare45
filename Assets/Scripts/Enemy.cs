@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float scoreValue;
     [SerializeField] private float _damage;
     [SerializeField] private float _hitInterval;
+    [SerializeField] private List<GameObject> drops;
+    [SerializeField] private float dropRate;
 
     public float damage
     {
@@ -34,6 +37,11 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))
         {
             updateScore?.Invoke(scoreValue);
+            if (Random.Range(0, 100) < dropRate)
+            {
+                GameObject drop = drops[Random.Range(0, drops.Count)];
+                Instantiate(drop, transform.position, transform.rotation);
+            }
             Destroy(gameObject);
         }
     }

@@ -489,9 +489,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Magazines
-
-    x 0'
+  m_text: Magazines
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -560,12 +558,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 362739506}
-    characterCount: 13
+    characterCount: 9
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1413,12 +1411,12 @@ PrefabInstance:
     - target: {fileID: 134452713324379876, guid: 334c42704191243588710cb8135c338a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.828
+      value: -1.77
       objectReference: {fileID: 0}
     - target: {fileID: 134452713324379876, guid: 334c42704191243588710cb8135c338a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.182
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 134452713324379876, guid: 334c42704191243588710cb8135c338a,
         type: 3}

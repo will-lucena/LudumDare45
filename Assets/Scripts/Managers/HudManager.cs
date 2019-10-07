@@ -21,11 +21,6 @@ namespace Managers
 
         private int items;
         private int selectedIndex;
-        
-        private void Awake()
-        {
-            
-        }
 
         private void OnEnable()
         {
@@ -121,6 +116,7 @@ namespace Managers
 
         private void updateMagazines(int amount)
         {
+            Debug.Log(amount);
             magazinesLabel.text = "Magazines\nx " + amount;
         }
     }
