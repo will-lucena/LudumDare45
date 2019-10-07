@@ -1,4 +1,4 @@
-# A ludumdare 45 game
+# [A ludumdare 45 game](https://ldjam.com/events/ludum-dare/45/onlywithguns) following the theme "Start with nothing"
 
 ![](/siteArts/gamejolt-thumbnail.jpg)
 
