@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private WeaponSO weaponInfo;
     [SerializeField] private LineRenderer sight;
+    [SerializeField] private SpriteRenderer hud;
     
     private SpriteRenderer _sprite;
     private int _maxAmmo;
@@ -89,5 +90,21 @@ public class Weapon : MonoBehaviour
     private void OnDisable()
     {
         sight.enabled = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            hud.enabled = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            hud.enabled = false;
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Managers
 
         [SerializeField] private TextMeshProUGUI ammoLabel;
         [SerializeField] private TextMeshProUGUI magazinesLabel;
-        [SerializeField] private TextMeshProUGUI changeLabel; 
+        [SerializeField] private Image changeLabel; 
         [SerializeField] private List<Image> weapons;
         [SerializeField] private List<Image> weaponsHighlight;
         [SerializeField] private TextMeshProUGUI scoreLabel;
@@ -126,7 +126,6 @@ namespace Managers
 
         private void updateMagazines(int amount)
         {
-            Debug.Log(amount);
             magazinesLabel.text = "Magazines\nx " + amount;
         }
     }
