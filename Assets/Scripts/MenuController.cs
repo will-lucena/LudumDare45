@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
@@ -11,12 +12,30 @@ public class MenuController : MonoBehaviour
     private GameObject actualMenu;
     private GameObject lastMenu;
 
+    private Controls _controls;
+    
     private void OnEnable()
     {
         if (lastMenu == gameObject)
         {
             Debug.Log(lastMenu);
         }
+
+        _controls.MenuControl.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _controls.MenuControl.Disable();
+    }
+
+    private void Awake()
+    {
+        _controls = new Controls();
+        _controls.MenuControl.Play.performed += _ => goToGame();
+        _controls.MenuControl.About.performed += _ => goToAbout();
+        _controls.MenuControl.Back.performed += _ => goToMain();
+        _controls.MenuControl.Quit.performed += _ => quit();
     }
 
     private void Start()
@@ -27,9 +46,12 @@ public class MenuController : MonoBehaviour
 
     public void goToAbout()
     {
-        lastMenu = actualMenu;
-        actualMenu.GetComponent<Animator>().SetTrigger("slide out");
-        actualMenu = aboutGO;
+        if (actualMenu.name != aboutGO.name)
+        {
+            lastMenu = actualMenu;
+            actualMenu.GetComponent<Animator>().SetTrigger("slide out");
+            actualMenu = aboutGO;
+        }
     }
 
     public void goToSettings()
@@ -41,9 +63,12 @@ public class MenuController : MonoBehaviour
 
     public void goToMain()
     {
-        lastMenu = actualMenu;
-        actualMenu.GetComponent<Animator>().SetTrigger("slide out");
-        actualMenu = mainGO;
+        if (actualMenu.name != mainGO.name)
+        {
+            lastMenu = actualMenu;
+            actualMenu.GetComponent<Animator>().SetTrigger("slide out");
+            actualMenu = mainGO;
+        }
     }
 
     public void goToHow()

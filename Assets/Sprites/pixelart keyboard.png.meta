@@ -269,9 +269,9 @@ TextureImporter:
       name: pixelart keyboard_3
       rect:
         serializedVersion: 2
-        x: 48
+        x: 193
         y: 192
-        width: 186
+        width: 41
         height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -376,7 +376,7 @@ TextureImporter:
         serializedVersion: 2
         x: 176
         y: 160
-        width: 48
+        width: 16
         height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

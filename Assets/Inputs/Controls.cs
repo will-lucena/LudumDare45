@@ -293,6 +293,90 @@ public class Controls : IInputActionCollection
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MenuControl"",
+            ""id"": ""bae20a9a-0ddd-43f0-bfe7-55686e5dd5a1"",
+            ""actions"": [
+                {
+                    ""name"": ""Play"",
+                    ""type"": ""Button"",
+                    ""id"": ""121d49bc-1920-4c9d-bab0-efa455ac5523"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""About"",
+                    ""type"": ""Button"",
+                    ""id"": ""db22c69a-9f27-4b53-be07-cc635c40a213"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d3ca238-d3b1-495f-8f69-a6c07f372762"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8cdeb67-3e33-4121-a4ed-cce27567f580"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ab7facee-4108-4fe8-82db-a7f1106bf1d1"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Play"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4533f513-2d9f-49c6-bee5-38a872b46070"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""About"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e0d64bb-df6c-4205-b0e4-120b4cb301e5"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78986a92-311b-407b-915e-d83d8d8367fe"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -307,6 +391,12 @@ public class Controls : IInputActionCollection
         m_PlayerControl_ChangeToMainWeapon = m_PlayerControl.FindAction("ChangeToMainWeapon", throwIfNotFound: true);
         m_PlayerControl_ChangeToSecondaryWeapon = m_PlayerControl.FindAction("ChangeToSecondaryWeapon", throwIfNotFound: true);
         m_PlayerControl_CollectWeapon = m_PlayerControl.FindAction("CollectWeapon", throwIfNotFound: true);
+        // MenuControl
+        m_MenuControl = asset.FindActionMap("MenuControl", throwIfNotFound: true);
+        m_MenuControl_Play = m_MenuControl.FindAction("Play", throwIfNotFound: true);
+        m_MenuControl_About = m_MenuControl.FindAction("About", throwIfNotFound: true);
+        m_MenuControl_Quit = m_MenuControl.FindAction("Quit", throwIfNotFound: true);
+        m_MenuControl_Back = m_MenuControl.FindAction("Back", throwIfNotFound: true);
     }
 
     ~Controls()
@@ -441,6 +531,63 @@ public class Controls : IInputActionCollection
         }
     }
     public PlayerControlActions @PlayerControl => new PlayerControlActions(this);
+
+    // MenuControl
+    private readonly InputActionMap m_MenuControl;
+    private IMenuControlActions m_MenuControlActionsCallbackInterface;
+    private readonly InputAction m_MenuControl_Play;
+    private readonly InputAction m_MenuControl_About;
+    private readonly InputAction m_MenuControl_Quit;
+    private readonly InputAction m_MenuControl_Back;
+    public struct MenuControlActions
+    {
+        private Controls m_Wrapper;
+        public MenuControlActions(Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Play => m_Wrapper.m_MenuControl_Play;
+        public InputAction @About => m_Wrapper.m_MenuControl_About;
+        public InputAction @Quit => m_Wrapper.m_MenuControl_Quit;
+        public InputAction @Back => m_Wrapper.m_MenuControl_Back;
+        public InputActionMap Get() { return m_Wrapper.m_MenuControl; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuControlActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuControlActions instance)
+        {
+            if (m_Wrapper.m_MenuControlActionsCallbackInterface != null)
+            {
+                Play.started -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnPlay;
+                Play.performed -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnPlay;
+                Play.canceled -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnPlay;
+                About.started -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnAbout;
+                About.performed -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnAbout;
+                About.canceled -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnAbout;
+                Quit.started -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnQuit;
+                Quit.performed -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnQuit;
+                Quit.canceled -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnQuit;
+                Back.started -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnBack;
+                Back.performed -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnBack;
+                Back.canceled -= m_Wrapper.m_MenuControlActionsCallbackInterface.OnBack;
+            }
+            m_Wrapper.m_MenuControlActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                Play.started += instance.OnPlay;
+                Play.performed += instance.OnPlay;
+                Play.canceled += instance.OnPlay;
+                About.started += instance.OnAbout;
+                About.performed += instance.OnAbout;
+                About.canceled += instance.OnAbout;
+                Quit.started += instance.OnQuit;
+                Quit.performed += instance.OnQuit;
+                Quit.canceled += instance.OnQuit;
+                Back.started += instance.OnBack;
+                Back.performed += instance.OnBack;
+                Back.canceled += instance.OnBack;
+            }
+        }
+    }
+    public MenuControlActions @MenuControl => new MenuControlActions(this);
     public interface IPlayerControlActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -451,5 +598,12 @@ public class Controls : IInputActionCollection
         void OnChangeToMainWeapon(InputAction.CallbackContext context);
         void OnChangeToSecondaryWeapon(InputAction.CallbackContext context);
         void OnCollectWeapon(InputAction.CallbackContext context);
+    }
+    public interface IMenuControlActions
+    {
+        void OnPlay(InputAction.CallbackContext context);
+        void OnAbout(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
 }

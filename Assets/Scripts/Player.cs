@@ -174,10 +174,13 @@ public class Player : MonoBehaviour
 
     private void reload()
     {
-        magazines--;
-        _activeWeapon.reload();
-        updateMagazinesHud?.Invoke(magazines);
-        updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
+        if (magazines > 0)
+        {
+            magazines--;
+            _activeWeapon.reload();
+            updateMagazinesHud?.Invoke(magazines);
+            updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
+        }
     }
 
     private void changeWeapon(int slot)

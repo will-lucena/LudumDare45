@@ -281,6 +281,90 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "MenuControl",
+            "id": "bae20a9a-0ddd-43f0-bfe7-55686e5dd5a1",
+            "actions": [
+                {
+                    "name": "Play",
+                    "type": "Button",
+                    "id": "121d49bc-1920-4c9d-bab0-efa455ac5523",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "About",
+                    "type": "Button",
+                    "id": "db22c69a-9f27-4b53-be07-cc635c40a213",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "1d3ca238-d3b1-495f-8f69-a6c07f372762",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "c8cdeb67-3e33-4121-a4ed-cce27567f580",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ab7facee-4108-4fe8-82db-a7f1106bf1d1",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Play",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4533f513-2d9f-49c6-bee5-38a872b46070",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "About",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e0d64bb-df6c-4205-b0e4-120b4cb301e5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78986a92-311b-407b-915e-d83d8d8367fe",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
