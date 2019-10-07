@@ -18,6 +18,7 @@ namespace Managers
         [SerializeField] private List<Image> weaponsHighlight;
         [SerializeField] private TextMeshProUGUI scoreLabel;
         [SerializeField] private GameObject gameoverScreen;
+        [SerializeField] private Image health;
 
         private int items;
         private int selectedIndex;
@@ -41,6 +42,7 @@ namespace Managers
             _manager.updateSelectedWeapon += changeSelection;
             _manager.updateScore += updateScore;
             _manager.showGameoverScreen += gameover;
+            _manager.updateHealthHud += updateHealth;
         }
         
         private void unsubscription()
@@ -52,8 +54,16 @@ namespace Managers
             _manager.updateSelectedWeapon -= changeSelection;
             _manager.updateScore -= updateScore;
             _manager.showGameoverScreen -= gameover;
+            _manager.updateHealthHud -= updateHealth;
         }
 
+        private void updateHealth(float amount)
+        {
+            float healthRate = amount / 100;
+            Debug.Log(healthRate);
+            health.color = new Color(255, 0, 0, 1 * (1 - healthRate) * 0.8f);
+        }
+        
         private void gameover()
         {
             gameoverScreen.SetActive(true);

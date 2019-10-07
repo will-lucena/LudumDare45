@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public Action<int> updateAmountOfWeapons;
     public Action deathPerAmmo;
     public Action deathPerHealth;
+    public Action<float> updateHealthValue;
 
     private Controls _controls;
     private Rigidbody2D _rb;
@@ -93,6 +94,7 @@ public class Player : MonoBehaviour
     private void takeHit(float value)
     {
         currentHealth -= value;
+        updateHealthValue?.Invoke(currentHealth);
 
         if (currentHealth < 0)
         {

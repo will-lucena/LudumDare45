@@ -12,6 +12,7 @@ namespace Managers
         public Action<int> updateAmountOfWeapons;
         public Action<float> updateScore;
         public Action showGameoverScreen;
+        public Action<float> updateHealthHud;
 
         [SerializeField] private Player player;
         private float score;
@@ -53,6 +54,7 @@ namespace Managers
             Enemy.updateScore += listenScoreChange;
             player.deathPerAmmo += callEndGame;
             player.deathPerHealth += callEndGame;
+            player.updateHealthValue += updateHealthHud;
         }
 
         private void unsubscription()
@@ -65,6 +67,7 @@ namespace Managers
             Enemy.updateScore -= listenScoreChange;
             player.deathPerAmmo -= callEndGame;
             player.deathPerHealth -= callEndGame;
+            player.updateHealthValue -= updateHealthHud;
         }
     }
 }
