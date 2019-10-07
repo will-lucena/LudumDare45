@@ -11,20 +11,10 @@ namespace Managers
         public Action<Color> updatedWeaponBag;
         public Action<int> updateAmountOfWeapons;
         public Action<float> updateScore;
+        public Action showGameoverScreen;
 
         [SerializeField] private Player player;
         private float score;
-        
-        private void Awake()
-        {
-            player.updateAmmoHud += updateAmmoAmount;
-            player.updateMagazinesHud += updateMagazineAmount;
-            player.updateSelectedWeapon += updateSelectedWeapon;
-            player.updateAmountOfWeapons += updateAmountOfWeapons;
-            player.updatedWeaponBag += updatedWeaponBag;
-
-            Enemy.updateScore += listenScoreChange;
-        }
 
         private void Update()
         {
@@ -35,6 +25,44 @@ namespace Managers
         {
             score += amount;
             updateScore?.Invoke(score);
+        }
+
+        private void callEndGame()
+        {
+            showGameoverScreen?.Invoke();
+            gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            subscription();
+        }
+
+        private void OnDisable()
+        {
+            unsubscription();        
+        }
+
+        private void subscription()
+        {
+            player.updateAmmoHud += updateAmmoAmount;
+            player.updateMagazinesHud += updateMagazineAmount;
+            player.updateSelectedWeapon += updateSelectedWeapon;
+            player.updateAmountOfWeapons += updateAmountOfWeapons;
+            player.updatedWeaponBag += updatedWeaponBag;
+            player.deathPerAmmo += callEndGame;
+            player.deathPerHealth += callEndGame;
+        }
+
+        private void unsubscription()
+        {
+            player.updateAmmoHud -= updateAmmoAmount;
+            player.updateMagazinesHud -= updateMagazineAmount;
+            player.updateSelectedWeapon -= updateSelectedWeapon;
+            player.updateAmountOfWeapons -= updateAmountOfWeapons;
+            player.updatedWeaponBag -= updatedWeaponBag;
+            player.deathPerAmmo -= callEndGame;
+            player.deathPerHealth -= callEndGame;
         }
     }
 }

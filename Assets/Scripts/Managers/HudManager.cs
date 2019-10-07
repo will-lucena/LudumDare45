@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -16,11 +17,27 @@ namespace Managers
         [SerializeField] private List<Image> weapons;
         [SerializeField] private List<Image> weaponsHighlight;
         [SerializeField] private TextMeshProUGUI scoreLabel;
+        [SerializeField] private GameObject gameoverScreen;
 
         private int items;
         private int selectedIndex;
         
         private void Awake()
+        {
+            
+        }
+
+        private void OnEnable()
+        {
+            subscription();
+        }
+
+        private void OnDisable()
+        {
+            unsubscription();
+        }
+
+        private void subscription()
         {
             _manager.updateAmmoAmount += updateAmmo;
             _manager.updateMagazineAmount += updateMagazines;
@@ -28,8 +45,31 @@ namespace Managers
             _manager.updatedWeaponBag += updateWeapons;
             _manager.updateSelectedWeapon += changeSelection;
             _manager.updateScore += updateScore;
+            _manager.showGameoverScreen += gameover;
+        }
+        
+        private void unsubscription()
+        {
+            _manager.updateAmmoAmount -= updateAmmo;
+            _manager.updateMagazineAmount -= updateMagazines;
+            _manager.updateAmountOfWeapons -= showChangebutton;
+            _manager.updatedWeaponBag -= updateWeapons;
+            _manager.updateSelectedWeapon -= changeSelection;
+            _manager.updateScore -= updateScore;
+            _manager.showGameoverScreen -= gameover;
         }
 
+        private void gameover()
+        {
+            gameoverScreen.SetActive(true);
+            Invoke("goToMenu", 3);
+        }
+
+        private void goToMenu()
+        {
+            SceneManager.LoadScene("Menu");
+        }
+        
         private void updateScore(float value)
         {
             scoreLabel.text = "Score: " + value.ToString("F2");

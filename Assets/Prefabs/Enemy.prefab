@@ -202,3 +202,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 10
+  _damage: 10
+  _hitInterval: 3

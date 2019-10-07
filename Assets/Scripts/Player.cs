@@ -12,11 +12,17 @@ public class Player : MonoBehaviour
     public Action<int> updateSelectedWeapon;
     public Action<Color> updatedWeaponBag;
     public Action<int> updateAmountOfWeapons;
+    public Action deathPerAmmo;
+    public Action deathPerHealth;
 
     private Controls _controls;
     private Rigidbody2D _rb;
     private Vector2 _movement;
     private Vector2 _rotation;
+    private bool _canPick;
+    private GameObject collectableWeapon;
+    private float _lastHitTaken;
+
 
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationOffset;
@@ -24,28 +30,26 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector2 gunSlot;
     [SerializeField] private int maxWeaponsLenght;
     [SerializeField] private float throwForce;
-    
+    [SerializeField] private float maxHealth;
+    [SerializeField] private float currentHealth;
     [SerializeField] private List<Weapon> weapons;
-
     [SerializeField] private Weapon _activeWeapon;
-    private bool _canPick;
-    private GameObject collectableWeapon;
 
+    
     private void OnEnable()
     {
+        subscription();
         _controls.PlayerControl.Enable();
     }
 
     private void OnDisable()
     {
         _controls.PlayerControl.Disable();
+        unsubscription();
     }
 
-    private void Awake()
+    private void subscription()
     {
-        weapons = new List<Weapon>(maxWeaponsLenght);
-        _controls = new Controls();
-        _rb = GetComponent<Rigidbody2D>();
         _controls.PlayerControl.Move.performed += ctx => move(ctx.ReadValue<Vector2>());
         _controls.PlayerControl.Move.canceled += ctx => move(ctx.ReadValue<Vector2>());
         _controls.PlayerControl.Aim.performed += ctx => aim(Camera.main.ScreenToWorldPoint(ctx.ReadValue<Vector2>()));
@@ -56,6 +60,26 @@ public class Player : MonoBehaviour
         _controls.PlayerControl.ChangeToSecondaryWeapon.performed += _ => changeWeapon(1);
         _controls.PlayerControl.CollectWeapon.performed += _ => pickWeapon();
     }
+    
+    private void unsubscription()
+    {
+        _controls.PlayerControl.Move.performed -= ctx => move(ctx.ReadValue<Vector2>());
+        _controls.PlayerControl.Move.canceled -= ctx => move(ctx.ReadValue<Vector2>());
+        _controls.PlayerControl.Aim.performed -= ctx => aim(Camera.main.ScreenToWorldPoint(ctx.ReadValue<Vector2>()));
+        _controls.PlayerControl.Shoot.performed -= _ => shooting();
+        _controls.PlayerControl.Reload.performed -= _ => reload();
+        _controls.PlayerControl.ChangeWeapon.performed -= _ => changeWeapon(_getFirstUnselectedSlot());
+        _controls.PlayerControl.ChangeToMainWeapon.performed -= _ => changeWeapon(0);
+        _controls.PlayerControl.ChangeToSecondaryWeapon.performed -= _ => changeWeapon(1);
+        _controls.PlayerControl.CollectWeapon.performed -= _ => pickWeapon();
+    }
+
+    private void Awake()
+    {
+        weapons = new List<Weapon>(maxWeaponsLenght);
+        _controls = new Controls();
+        _rb = GetComponent<Rigidbody2D>();
+    }
 
     private void Start()
     {
@@ -64,8 +88,30 @@ public class Player : MonoBehaviour
             updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
             updateMagazinesHud?.Invoke(magazines);
         }
+        currentHealth = maxHealth;
     }
 
+    private void takeHit(float value)
+    {
+        currentHealth -= value;
+
+        if (currentHealth < 0)
+        {
+            deathPerHealth?.Invoke();
+            enabled = false;
+        }
+    }
+    
+    private float totalAmmoLeft()
+    {
+        float total = 0;
+
+        total = weapons.Sum(item => { return item.currrentAmmo; });
+        total += (magazines * _activeWeapon.maxAmmo);
+        
+        return total;
+    }
+    
     private int _getFirstFreeSlot()
     {
         return weapons.FindIndex(item =>
@@ -107,11 +153,22 @@ public class Player : MonoBehaviour
 
     private void shooting()
     {
-        if (_activeWeapon && _activeWeapon.currrentAmmo > 0)
+        if (_activeWeapon)
         {
-            _activeWeapon.shoot();
-            updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
-        }
+            if (_activeWeapon.currrentAmmo > 0)
+            {
+                _activeWeapon.shoot();
+                updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
+            }
+            else
+            {
+                if (totalAmmoLeft() == 0)
+                {
+                    deathPerAmmo?.Invoke();
+                    enabled = false;
+                }
+            }
+        } 
     }
 
     private void reload()
@@ -182,6 +239,8 @@ public class Player : MonoBehaviour
         Vector2 direction = _rotation - _rb.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - rotationOffset;
         _rb.rotation = angle;
+
+        _lastHitTaken += Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -199,6 +258,28 @@ public class Player : MonoBehaviour
         if (_canPick)
         {
             collectableWeapon = other.gameObject;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            takeHit(other.gameObject.GetComponent<Enemy>().damage);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Enemy enemyScript = other.gameObject.GetComponent<Enemy>();
+
+            if (_lastHitTaken > enemyScript.hitInterval)
+            {
+                takeHit(enemyScript.damage);
+                _lastHitTaken = 0;
+            }
         }
     }
 }

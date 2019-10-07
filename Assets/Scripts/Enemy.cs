@@ -10,6 +10,18 @@ public class Enemy : MonoBehaviour
     private AIDestinationSetter _iaScript;
 
     [SerializeField] private float scoreValue;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _hitInterval;
+
+    public float damage
+    {
+        get => _damage;
+    }
+
+    public float hitInterval
+    {
+        get => _hitInterval;
+    }
     
     private void Start()
     {

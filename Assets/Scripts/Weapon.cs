@@ -50,6 +50,11 @@ public class Weapon : MonoBehaviour
         get => _currentAmmo;
     }
 
+    public int maxAmmo
+    {
+        get => _maxAmmo;
+    }
+
     public void reload()
     {
         _currentAmmo = _maxAmmo;
