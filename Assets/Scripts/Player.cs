@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using SODefinitions;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
     public Action<int> updateMagazinesHud;
     public Action<int> updateAmmoHud;
     public Action<int> updateSelectedWeapon;
-    public Action<Color> updatedWeaponBag;
+    [FormerlySerializedAs("updatedWeaponBag")] public Action<Color> updateWeaponBag;
     public Action<int> updateAmountOfWeapons;
     public Action deathPerAmmo;
     public Action deathPerHealth;
@@ -176,6 +177,7 @@ public class Player : MonoBehaviour
         magazines--;
         _activeWeapon.reload();
         updateMagazinesHud?.Invoke(magazines);
+        updateAmmoHud?.Invoke(_activeWeapon.currrentAmmo);
     }
 
     private void changeWeapon(int slot)
@@ -207,7 +209,7 @@ public class Player : MonoBehaviour
                 if (weapons.Count == maxWeaponsLenght)
                 {
                     var go = transform.GetChild(unselectedSlot);
-                    go.gameObject.SetActive(true);
+                    go.gameObject.SetActive(false);
                     weapons.RemoveAt(unselectedSlot);
                     go.SetParent(null);
                     var position = transform.position;
@@ -218,7 +220,7 @@ public class Player : MonoBehaviour
                 weapons.Add(collectableWeapon.GetComponent<Weapon>());
                 updateAmountOfWeapons?.Invoke(weapons.Count);
                 activateWeapon(collectableWeapon.gameObject);
-                updatedWeaponBag?.Invoke(collectableWeapon.GetComponent<Weapon>().sprite);
+                updateWeaponBag?.Invoke(collectableWeapon.GetComponent<Weapon>().sprite);
             
                 if (_activeWeapon == null)
                 {

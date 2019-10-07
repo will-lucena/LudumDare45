@@ -8,20 +8,21 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject aboutGO;
     [SerializeField] private GameObject settingsGO;
 
-    [SerializeField] private Transform contentGroup;
-    [SerializeField] private GameObject devCardPrefab;
-
     private GameObject actualMenu;
     private GameObject lastMenu;
 
-    private void Awake()
+    private void OnEnable()
     {
-        SlideAnimationController.notifySlideEnd += startSlideIn;
+        if (lastMenu == gameObject)
+        {
+            Debug.Log(lastMenu);
+        }
     }
 
     private void Start()
     {
         actualMenu = mainGO;
+        SlideAnimationController.notifySlideEnd += startSlideIn;
     }
 
     public void goToAbout()
