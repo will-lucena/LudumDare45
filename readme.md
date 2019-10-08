@@ -15,3 +15,36 @@
 
 ### Hashtags
 #ludumdare45 #ld45 #pongrn #topdown #topdownshooter #shooter #bullethell #survival
+
+
+## Roadmap
+---
+
+**v2.0.0**
+
+- [ ] To add sfx
+- [ ] To add new assets (player/weapons/items/enemies/hud sprites and animations)
+- [ ] To support gamepad controllers
+--- 
+
+**v3.0.0**
+
+- [ ] To port to mobile
+- [ ] To release it on store
+---
+
+**v4.0.0**
+
+- [ ] To improve resolutions
+- [ ] To add post process effects
+- [ ] To create a level
+- [ ] To add vfx (screen shake, weapon recoil)
+---
+
+**v5.0.0**
+
+- [ ] To add new items (health potions, weapons, bullets)
+- [ ] To create a shop
+- [ ] To add rank
+
+---
