@@ -251,7 +251,13 @@ public class Player : MonoBehaviour
     {
         _rb.MovePosition(_rb.position + Time.fixedDeltaTime * movementSpeed * _movement);
         Vector2 direction = _rotation - _rb.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - rotationOffset;
+        float angle;
+#if UNITY_EDITOR || UNITY_STANDALONE
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - rotationOffset;
+#else
+        angle = Mathf.Atan2(-direction.y, direction.x) * Mathf.Rad2Deg - rotationOffset;
+#endif
+        
         _rb.rotation = angle;
 
         _lastHitTaken += Time.deltaTime;

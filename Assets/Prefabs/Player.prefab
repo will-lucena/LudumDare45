@@ -99,7 +99,7 @@ MonoBehaviour:
   movementSpeed: 10
   rotationOffset: 90
   magazines: 2
-  gunSlot: {x: 0.064, y: 0}
+  gunSlot: {x: 0.144, y: 0}
   maxWeaponsLenght: 2
   throwForce: 2
   maxHealth: 100
@@ -140,18 +140,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0009965599, y: 0.0017441064}
+  m_Offset: {x: 0.00045606494, y: -0.00079802424}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.096, y: 0.203}
+    oldSize: {x: 0.192, y: 0.406}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.095866114, y: 0.20399523}
+  m_Size: {x: 0.19174016, y: 0.4056697}
   m_EdgeRadius: 0
 --- !u!61 &9163393114036340998
 BoxCollider2D:
@@ -166,16 +166,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0009966418, y: -0.0017439574}
+  m_Offset: {x: -0.00045600533, y: -0.0008965656}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.096, y: 0.203}
+    oldSize: {x: 0.192, y: 0.406}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.09586614, y: 0.20399523}
+  m_Size: {x: 0.19367704, y: 0.40566957}
   m_EdgeRadius: 0
