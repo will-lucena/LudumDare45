@@ -8,7 +8,7 @@ namespace Managers
         public Action<int> updateMagazineAmount;
         public Action<int> updateAmmoAmount;
         public Action<int> updateSelectedWeapon;
-        public Action<Color> updatedWeaponBag;
+        public Action<Sprite> updatedWeaponBag;
         public Action<int> updateAmountOfWeapons;
         public Action<float> updateScore;
         public Action showGameoverScreen;

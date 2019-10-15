@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public Action<int> updateMagazinesHud;
     public Action<int> updateAmmoHud;
     public Action<int> updateSelectedWeapon;
-    [FormerlySerializedAs("updatedWeaponBag")] public Action<Color> updateWeaponBag;
+    public Action<Sprite> updateWeaponBag;
     public Action<int> updateAmountOfWeapons;
     public Action deathPerAmmo;
     public Action deathPerHealth;

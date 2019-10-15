@@ -62,9 +62,9 @@ public class Weapon : MonoBehaviour
     }
 
     //TODO: To change it to sprites
-    public Color sprite
+    public Sprite sprite
     {
-        get => _sprite.color;
+        get => weaponInfo.sprite;
     }
 
     public void shoot()
@@ -72,14 +72,14 @@ public class Weapon : MonoBehaviour
         _currentAmmo--;
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(shootPoint.up * bulletForce, ForceMode2D.Impulse);
+        rb.AddForce(shootPoint.right * bulletForce, ForceMode2D.Impulse);
     }
 
     private void Update()
     {
         var position = shootPoint.position;
         sight.SetPosition(0, position);
-        sight.SetPosition(1, position + shootPoint.up * 100);
+        sight.SetPosition(1, position + shootPoint.right * 100);
     }
 
     private void OnEnable()

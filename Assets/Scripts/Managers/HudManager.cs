@@ -105,7 +105,7 @@ namespace Managers
             }
         }
 
-        private void updateWeapons(Color weapon)
+        private void updateWeapons(Sprite weapon)
         {
             int index = items;
             if (items > 1)
@@ -114,7 +114,7 @@ namespace Managers
                 items--;
             }
             weapons[index].gameObject.SetActive(true);
-            weapons[index].color = weapon;
+            weapons[index].sprite = weapon;
             changeSelection(0);
             items++;
         }

@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb8f367c3f864e1d8c8c9c24c84e457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletInfo: {fileID: 11400000, guid: a2f5d3d4bc2c94df9a686a653557bcf8, type: 2}
+  bulletInfo: {fileID: 11400000, guid: 541d87295f42247cbb531af4b15b59d1, type: 2}
 --- !u!50 &7321509074873611889
 Rigidbody2D:
   serializedVersion: 4
@@ -134,7 +134,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.096, y: 0.203}
+    oldSize: {x: 0.192, y: 0.406}
     newSize: {x: 0.96, y: 2.03}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

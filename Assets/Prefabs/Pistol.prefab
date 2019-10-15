@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 134452713324379876}
   - component: {fileID: 134452713324379877}
   - component: {fileID: 134452713324379878}
-  - component: {fileID: 8773657536185761934}
   - component: {fileID: 2449472602440510706}
   - component: {fileID: 1416026806}
+  - component: {fileID: 8145372154658658628}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Weapon
@@ -156,8 +156,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0cb488f1f403345c78b2fed28870676b, type: 3}
-  m_Color: {r: 0.05731577, g: 0.0754717, b: 0.07377183, a: 1}
+  m_Sprite: {fileID: 6961653080833796888, guid: 4cfe0da932d904fbe870a2a83ecaa2e4,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -182,35 +183,9 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 2876391262358066729, guid: 1a7eb05ccbfbf4f0c985d3afa0aee767,
     type: 3}
   _shootPoint: {fileID: 1562357873794688932}
-  weaponInfo: {fileID: 11400000, guid: 2ede62354feda49cea7261eaa1232329, type: 2}
+  weaponInfo: {fileID: 11400000, guid: 714c6b558b62f4d3ba0ec01570c5810a, type: 2}
   sight: {fileID: 0}
   hud: {fileID: 289606271}
---- !u!61 &8773657536185761934
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 134452713324379875}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0005502328, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.192, y: 0.406}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.19173531, y: 0.40107298}
-  m_EdgeRadius: 0
 --- !u!50 &2449472602440510706
 Rigidbody2D:
   serializedVersion: 4
@@ -328,6 +303,32 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!61 &8145372154658658628
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134452713324379875}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.21, y: 0.19}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.21, y: 0.19}
+  m_EdgeRadius: 0
 --- !u!1 &2201091166856161822
 GameObject:
   m_ObjectHideFlags: 0
